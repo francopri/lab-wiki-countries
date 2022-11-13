@@ -1,23 +1,33 @@
 import './App.css';
-import Navbar from './components/Navbar';
-import HomePage from './pages/HomePage';
 import { Routes, Route } from "react-router-dom";
-import ErrorPage from './pages/ErrorPage';
-// import CountriesList from './components/CountriesList'
+import { useState } from 'react';
+import Navbar from './components/Navbar';
+import CountriesList from './components/CountriesList';
+import CountryDetails from './components/CountryDetails';
+import countries from './countries.json'
+
 
 function App() {
-  return (
 
+  const [allCountries, setAllCountries] = useState(countries);
+
+  return (
 
     <div className="App">
       <Navbar />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="*" element={ <ErrorPage /> } /> 
 
-      </Routes>
+      <div className="container">
+        <div className="row">
 
-    </div >
+          <CountriesList allCountries={allCountries} />
+
+          <Routes>
+            <Route path="/:countryID" element={<CountryDetails allCountries={allCountries} />} />
+          </Routes>
+          
+        </div>
+      </div>
+    </div>
   );
 }
 
